@@ -1,0 +1,99 @@
+.controlMenu {
+    display: flex;
+    justify-content: space-between;
+}
+
+.back {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 27px 32px;
+    text-decoration: none;
+}
+
+.back_icon {
+    padding-top: 5px;
+    margin-right: 20px;
+}
+
+.back_text {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 110.7%;
+    color: #8A91AB;
+}
+
+.favorite {
+    margin: 26px 39px;
+}
+
+.favorite svg{
+    width: 14px;
+    height: 20px;
+}
+
+.content {
+    height: 100vh;
+    background: radial-gradient(80.36% 80.36% at 50% 0%, #5A607C 0%, #161B30 100%);
+}
+
+.content_name {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 56px;
+    line-height: 110.7%;
+    margin-top: 30px;
+}
+
+.content_description {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 110.7%;
+    margin-top: 16px;
+}
+
+.temp, .pressure {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.temp_number {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 129.755px;
+    line-height: 110.7%;
+    background: linear-gradient(180deg, #FFFFFF 11.65%, rgba(255, 255, 255, 0) 139.47%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.temp_icon svg{
+    width: 191px;
+    height: 191px;
+    margin-right: -8px;
+}
+
+.pressure_icon {
+    margin-right: 10px;
+}
+
+.pressure_number {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 19px;
+}
+
+.sunset {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 110.7%;
+    color: #8A91AB;
+    margin-top: 32px;
+}

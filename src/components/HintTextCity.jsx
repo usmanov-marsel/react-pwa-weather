@@ -1,5 +1,5 @@
 import React from "react";
-import s from "./HintTextCity.module.css";
+import s from "./styles/HintTextCity.module.css";
 import Icon from "./Icon";
 
 const HintTextCity = () => {

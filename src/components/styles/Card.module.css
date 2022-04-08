@@ -1,0 +1,39 @@
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #292E44;
+    padding: 20px;
+    width: 270px;
+    height: 190px;
+    border-radius: 6px;
+    font-style: normal;
+}
+
+.card svg {
+    width: 74px;
+    height: 67px;
+}
+
+.card_name {
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.card_temp {
+    font-weight: 400;
+    font-size: 40px;
+    color: #FFFFFF;
+}
+
+.icon_delete {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.icon_delete svg {
+    width: 32px;
+    height: 32px;
+}
