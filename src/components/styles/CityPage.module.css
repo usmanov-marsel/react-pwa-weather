@@ -37,12 +37,6 @@
     stroke: #ff6c00; 
 }
 
-.success_message {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-}
-
 .content {
     height: 100vh;
     background: radial-gradient(80.36% 80.36% at 50% 0%, #5A607C 0%, #161B30 100%);

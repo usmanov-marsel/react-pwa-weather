@@ -15,7 +15,7 @@ export const selectStyles = {
         ...styles,
         backgroundColor: '#30354B',
         color: '#fff',
-        width: '510px',
+        maxWidth: '510px',
         height: '56px',
         display: 'flex',
         justifyContent: 'center',
@@ -27,7 +27,7 @@ export const selectStyles = {
     }},
     input: (styles) => ({ ...styles, color: '#8A91AB' }),
     menu: (styles) => ({
-        width: '510px',
+        maxWidth: '510px',
         height: '0px',
         margin: '0px auto',
     }),

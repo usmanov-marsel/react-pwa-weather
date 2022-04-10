@@ -18,7 +18,6 @@ const CityPage = ({ data }) => {
     else if (Object.keys(data).length === 0) {
         data = info;
     }
-    let showMessage = false;
     const id = Number(data.weather[0].id);
     const nameIcon = getIconNameFromId(id);
     const timeSunset = new Date();
@@ -28,12 +27,10 @@ const CityPage = ({ data }) => {
         const cities = JSON.parse(localStorage.getItem('cities'));
         if (cities === null) {
             localStorage.setItem('cities', JSON.stringify([data.id]));
-            showMessage = true;
         }
         else if (!cities.includes(data.id)) {
             cities.push(data.id);
             localStorage.setItem('cities', JSON.stringify(cities));
-            showMessage = true;
         }
     }
 
@@ -47,7 +44,6 @@ const CityPage = ({ data }) => {
                     </Link>
                     <button className={s.favorite} onClick={saveFavotite}>
                         <Icon name='favorite' />
-                        {showMessage ? <div className={s.success_message}>Город успешно добавлен на главный экран!</div> : null}
                     </button>
                 </div>
                 <div className={s.content_name}>{data.name}</div>
