@@ -6,9 +6,8 @@ import { getIconNameFromId } from "../getIconNameFromId";
 import { fetchWeatherId } from "../api/fetchWeather";
 
 const CityPage = ({ data }) => {
-    let params = useParams();
-    let [info, setInfo] = useState({});
-    let id, nameIcon, timeSunset;
+    const params = useParams();
+    const [info, setInfo] = useState({});
     if (Object.keys(info).length === 0 && Object.keys(data).length === 0) {
         data = fetchWeatherId(params.id);
         data.then((res) => {
@@ -20,10 +19,24 @@ const CityPage = ({ data }) => {
         data = info;
     }
     let showMessage = false;
-    id = Number(data.weather[0].id);
-    nameIcon = getIconNameFromId(id);
-    timeSunset = new Date();
+    const id = Number(data.weather[0].id);
+    const nameIcon = getIconNameFromId(id);
+    const timeSunset = new Date();
     timeSunset.setTime(data.sys.sunset + '000');
+
+    const saveFavotite = () => {
+        const cities = JSON.parse(localStorage.getItem('cities'));
+        if (cities === null) {
+            localStorage.setItem('cities', JSON.stringify([data.id]));
+            showMessage = true;
+        }
+        else if (!cities.includes(data.id)) {
+            cities.push(data.id);
+            localStorage.setItem('cities', JSON.stringify(cities));
+            showMessage = true;
+        }
+    }
+
     return(
         <div className="cityPage">
             <div className={s.content}>
@@ -32,18 +45,7 @@ const CityPage = ({ data }) => {
                         <div className={s.back_icon}><Icon name='back' /></div>
                         <div className={s.back_text}>Назад</div>
                     </Link>
-                    <button className={s.favorite} onClick={() => {
-                        let cities = JSON.parse(localStorage.getItem('cities'));
-                        if (cities === null) {
-                            localStorage.setItem('cities', JSON.stringify([data.id]));
-                            showMessage = true;
-                        }
-                        else if (!cities.includes(data.id)) {
-                            cities.push(data.id);
-                            localStorage.setItem('cities', JSON.stringify(cities));
-                            showMessage = true;
-                        }
-                    }}>
+                    <button className={s.favorite} onClick={saveFavotite}>
                         <Icon name='favorite' />
                         {showMessage ? <div className={s.success_message}>Город успешно добавлен на главный экран!</div> : null}
                     </button>
