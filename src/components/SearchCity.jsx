@@ -14,7 +14,7 @@ const colourStyles = {
     control: (styles) => ({
         ...styles, 
         backgroundColor: '#2A2F45',
-        width: '510px',
+        maxWidth: '510px',
         height: '56px',
         color: '#8A91AB',
         borderRadius: '2px',

@@ -19,6 +19,7 @@ const CityPage = ({ data }) => {
     else if (Object.keys(data).length === 0) {
         data = info;
     }
+    let showMessage = false;
     id = Number(data.weather[0].id);
     nameIcon = getIconNameFromId(id);
     timeSunset = new Date();
@@ -32,15 +33,20 @@ const CityPage = ({ data }) => {
                         <div className={s.back_text}>Назад</div>
                     </Link>
                     <button className={s.favorite} onClick={() => {
-                        if (localStorage.getItem('cities') === null) {
+                        let cities = JSON.parse(localStorage.getItem('cities'));
+                        if (cities === null) {
                             localStorage.setItem('cities', JSON.stringify([data.id]));
+                            showMessage = true;
                         }
-                        else {
-                            let cities = JSON.parse(localStorage.getItem('cities'));
+                        else if (!cities.includes(data.id)) {
                             cities.push(data.id);
                             localStorage.setItem('cities', JSON.stringify(cities));
+                            showMessage = true;
                         }
-                    }}><Icon name='favorite' /></button>
+                    }}>
+                        <Icon name='favorite' />
+                        {showMessage ? <div className={s.success_message}>Город успешно добавлен на главный экран!</div> : null}
+                    </button>
                 </div>
                 <div className={s.content_name}>{data.name}</div>
                 <div className={s.content_description}>{data.weather[0].description}</div>
