@@ -24,7 +24,7 @@ const SearchCity = ({ onDataChange }) => {
     }
     const onInputChange = (value) => {
         if (value.length >= 3) {
-            jsonp(`https://kladr-api.ru/api.php?token=syEDDkGiBabyFezKY26trntKD7hsbnBr&query=${value}&contentType=city`, null, (err, data) => {
+            jsonp(`https://kladr-api.ru/api.php?token=syEDDkGiBabyFezKY26trntKD7hsbnBr&query=${value}&contentType=city&limit=50`, null, (err, data) => {
                 const nameCitites = data.result.map(res => res.name);
                 setOptions(nameCitites.map(name => ({value: name, label: name})));
             })
