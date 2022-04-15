@@ -9,12 +9,9 @@ import { selectStyles } from "./styles/selectStyles";
 const SearchCity = ({ onDataChange }) => {
     const [options, setOptions] = useState([]);
     const navigate = useNavigate();
-    const onFilter = (option, inputValue) => {
-        if (inputValue.length >= 3 && inputValue.toLowerCase() === option.label.toLowerCase().slice(0, inputValue.length)) {
-            return option;
-        }
-        return null;
-    }
+
+    const onFilter = (option, inputValue) => inputValue.length < 3 ? null : option;
+
     const onSelectChange = async (option) => {
         if (option && option.value !== '') {
             const data = await fetchWeather(option.value);
@@ -24,7 +21,7 @@ const SearchCity = ({ onDataChange }) => {
     }
     const onInputChange = (value) => {
         if (value.length >= 3) {
-            jsonp(`https://kladr-api.ru/api.php?token=syEDDkGiBabyFezKY26trntKD7hsbnBr&query=${value}&contentType=city&limit=50`, null, (err, data) => {
+            jsonp(`https://kladr-api.ru/api.php?token=syEDDkGiBabyFezKY26trntKD7hsbnBr&query=${value}&contentType=city&limit=10`, null, (err, data) => {
                 const nameCitites = data.result.map(res => res.name);
                 setOptions(nameCitites.map(name => ({value: name, label: name})));
             })
@@ -34,10 +31,10 @@ const SearchCity = ({ onDataChange }) => {
     return(
         <Select
         isClearable
-        options={options}
+        options={options.slice(1)}
+        filterOption={onFilter}
         styles={selectStyles}
         placeholder="Укажите город"
-        filterOption={onFilter}
         onChange={onSelectChange}
         onInputChange={onInputChange}
         />

@@ -13,8 +13,8 @@ const getFavCity = async (id) => {
     }
 }
 
-const CardList = ({ cards, updateIdFavCities }) => {
-    const [cities, setCities] = useState(cards);
+const CardList = ({ idFavoriteCities, updateIdFavCities }) => {
+    const [cities, setCities] = useState(idFavoriteCities);
 
     const removeCity = (id) => {
         const newCities = cities.filter(elem => elem !== id);
@@ -26,7 +26,7 @@ const CardList = ({ cards, updateIdFavCities }) => {
         <div className={s.card_list}>
             {cities.map((card) => {
                 const cityInfo = getFavCity(card);
-                return <Card card={cityInfo} removeCity={removeCity} key={card}/>
+                return <Card cityInfo={cityInfo} removeCity={removeCity} key={card}/>
             })}
         </div>
     )

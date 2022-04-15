@@ -6,32 +6,43 @@ import { getIconNameFromId } from "../getIconNameFromId";
 import { fetchWeatherId } from "../api/fetchWeather";
 
 const CityPage = ({ data }) => {
+    const cities = JSON.parse(localStorage.getItem('cities'));
     const params = useParams();
-    const [info, setInfo] = useState({});
-    if (Object.keys(info).length === 0 && Object.keys(data).length === 0) {
-        data = fetchWeatherId(params.id);
-        data.then((res) => {
+    const [info, setInfo] = useState(data);
+    const [message, setMessage] = useState('');
+    if (Object.keys(info).length === 0 || Number(params.id) !== info.id) {
+        fetchWeatherId(params.id).then((res) => {
             setInfo(res);
         })
         return <div>Loading...</div>
     }
-    else if (Object.keys(data).length === 0) {
-        data = info;
-    }
-    const id = Number(data.weather[0].id);
+    const id = Number(info.weather[0].id);
     const nameIcon = getIconNameFromId(id);
     const timeSunset = new Date();
-    timeSunset.setTime(data.sys.sunset + '000');
+    timeSunset.setTime(info.sys.sunset + '000');
 
     const saveFavotite = () => {
-        const cities = JSON.parse(localStorage.getItem('cities'));
         if (cities === null) {
-            localStorage.setItem('cities', JSON.stringify([data.id]));
+            localStorage.setItem('cities', JSON.stringify([info.id]));
+            setMessage('Город успешно добавлен на главный экран!');
         }
-        else if (!cities.includes(data.id)) {
-            cities.push(data.id);
+        else if (!cities.includes(info.id)) {
+            cities.push(info.id);
             localStorage.setItem('cities', JSON.stringify(cities));
+            setMessage('Город успешно добавлен на главный экран!');
         }
+        else {
+            console.log('Remove');
+            const newCities = cities.filter(elem => elem !== info.id);
+            if (newCities.length === 0) {
+                localStorage.removeItem('cities');
+            }
+            else {
+                localStorage.setItem('cities', JSON.stringify(newCities));
+            }
+            setMessage('Город убран из главного экрана!');
+        }
+        setTimeout(() => setMessage(''), 2500);
     }
 
     return(
@@ -42,22 +53,23 @@ const CityPage = ({ data }) => {
                         <div className={s.back_icon}><Icon name='back' /></div>
                         <div className={s.back_text}>Назад</div>
                     </Link>
-                    <button className={s.favorite} onClick={saveFavotite}>
+                    <button className={cities === null || !cities.includes(info.id) ? s.favorite : s.favorite_add} onClick={saveFavotite}>
                         <Icon name='favorite' />
                     </button>
                 </div>
-                <div className={s.content_name}>{data.name}</div>
-                <div className={s.content_description}>{data.weather[0].description}</div>
+                <div className={s.content_name}>{info.name}</div>
+                <div className={s.content_description}>{info.weather[0].description}</div>
                 <div className={s.temp}>
-                    <div className={s.temp_number}>{parseInt(data.main.temp)}°</div>
+                    <div className={s.temp_number}>{parseInt(info.main.temp)}°</div>
                     <div className={s.temp_icon}><Icon name={nameIcon} /></div>
                 </div>
                 <div className={s.pressure}>
                     <div className={s.pressure_icon}><Icon name='pressure' /></div>
-                    <div className={s.pressure_number}>{data.main.pressure} мм рт. ст.</div>
+                    <div className={s.pressure_number}>{info.main.pressure} мм рт. ст.</div>
                 </div>
                 <div className={s.sunset}>Закат в {timeSunset.toTimeString().split(' ')[0].slice(0, -3)}</div>
             </div>
+            <div className={s.message}>{message}</div>
         </div>
     )
 }

@@ -1,6 +1,6 @@
 {
-  "short_name": "Wheather Check",
-  "name": "React Wheather Check",
+  "short_name": "Weather Check",
+  "name": "React Weather Check",
   "icons": [
     {
       "src": "App_icon.png",

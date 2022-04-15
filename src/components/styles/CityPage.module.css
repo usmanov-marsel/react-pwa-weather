@@ -37,6 +37,12 @@
     stroke: #ff6c00; 
 }
 
+.favorite_add svg {
+    margin: 26px 39px;
+    width: 14px;
+    height: 20px;
+    stroke: #ff6c00; 
+}
 .content {
     height: 100vh;
     background: radial-gradient(80.36% 80.36% at 50% 0%, #5A607C 0%, #161B30 100%);
@@ -101,3 +107,11 @@
     color: #8A91AB;
     margin-top: 32px;
 }
+
+.message {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 30px;
+}
+

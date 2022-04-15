@@ -6,15 +6,15 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import CityPage from './components/CityPage';
 
 function App() {
-  let [data, setData] = useState({});
+  const [data, setData] = useState({});
   return (
     <div className="App">
       <Header />
       <BrowserRouter>
         <Routes>
           <Route path="/city/:id" element={<CityPage data={data}/>}/>
-          <Route path="" element={<Home onDataChange={(dat) => {
-            setData(dat);
+          <Route path="" element={<Home onDataChange={(data) => {
+            setData(data);
           }}/>}/>
         </Routes>
       </BrowserRouter>
