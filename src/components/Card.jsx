@@ -34,16 +34,13 @@ const Card = ({ cityInfo, removeCity }) => {
         <div className={s.card_name}> {city.name}</div>
         <div className={s.card_temp}> {parseInt(city.temp)}°</div>
         <div className={s.card_icon}>
-          {" "}
           <Icon name={getIconNameFromId(city.icon)} />
         </div>
       </Link>
       <div className={s.icon_delete}>
-        {" "}
         <button onClick={onDeleteLocalStorage}>
-          {" "}
-          <Icon name="delete" />{" "}
-        </button>{" "}
+          <Icon name="delete" />
+        </button>
       </div>
     </div>
   );

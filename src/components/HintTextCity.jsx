@@ -8,7 +8,7 @@ const HintTextCity = () => {
     <div className={s.hintText}>
       Начните вводить город,
       <br />
-      например,{" "}
+      например,
       <Link to="/city/554840">
         <span>Ижевск</span>
       </Link>
