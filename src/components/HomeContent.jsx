@@ -4,16 +4,23 @@ import HintFavoriteText from "./HintFavoriteText";
 import HintTextCity from "./HintTextCity";
 
 export const HomeContent = () => {
-    const [idFavoriteCities, setIdFavoriteCities] = useState(JSON.parse(localStorage.getItem('cities')));
-    
-    return(
+  const [idFavoriteCities, setIdFavoriteCities] = useState(
+    JSON.parse(localStorage.getItem("cities"))
+  );
+
+  return (
+    <>
+      {idFavoriteCities === null || idFavoriteCities.length === 0 ? (
         <>
-        {idFavoriteCities === null || idFavoriteCities.length === 0
-            ? <>
-                <HintTextCity /> 
-                <HintFavoriteText />
-            </>
-            : <CardList idFavoriteCities={idFavoriteCities} updateIdFavCities={setIdFavoriteCities} />}
+          <HintTextCity />
+          <HintFavoriteText />
         </>
-    )
-}
+      ) : (
+        <CardList
+          idFavoriteCities={idFavoriteCities}
+          updateIdFavCities={setIdFavoriteCities}
+        />
+      )}
+    </>
+  );
+};
