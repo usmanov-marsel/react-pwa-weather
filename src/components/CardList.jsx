@@ -18,7 +18,7 @@ const CardList = ({ idFavoriteCities, updateIdFavCities }) => {
 
   const removeCity = (id) => {
     const newCities = cities.filter((elem) => elem !== id);
-    if (newCities.length === 0) updateIdFavCities([]);
+    if (!newCities.length) updateIdFavCities([]);
     setCities(newCities);
   };
 

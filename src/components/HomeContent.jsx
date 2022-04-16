@@ -7,20 +7,18 @@ export const HomeContent = () => {
   const [idFavoriteCities, setIdFavoriteCities] = useState(
     JSON.parse(localStorage.getItem("cities"))
   );
-
+  if (!idFavoriteCities || !idFavoriteCities.length) {
+    return (
+      <>
+        <HintTextCity />
+        <HintFavoriteText />
+      </>
+    );
+  }
   return (
-    <>
-      {idFavoriteCities === null || idFavoriteCities.length === 0 ? (
-        <>
-          <HintTextCity />
-          <HintFavoriteText />
-        </>
-      ) : (
-        <CardList
-          idFavoriteCities={idFavoriteCities}
-          updateIdFavCities={setIdFavoriteCities}
-        />
-      )}
-    </>
+    <CardList
+      idFavoriteCities={idFavoriteCities}
+      updateIdFavCities={setIdFavoriteCities}
+    />
   );
 };

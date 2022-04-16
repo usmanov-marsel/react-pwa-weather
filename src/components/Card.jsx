@@ -16,7 +16,7 @@ const Card = ({ cityInfo, removeCity }) => {
     const ids = JSON.parse(localStorage.getItem("cities")).filter(
       (elem) => elem !== city.id
     );
-    if (ids.length === 0) {
+    if (!ids.length) {
       localStorage.removeItem("cities");
     } else {
       localStorage.setItem("cities", JSON.stringify(ids));

@@ -22,7 +22,7 @@ const CityPage = ({ data }) => {
   timeSunset.setTime(info.sys.sunset + "000");
 
   const saveFavotite = () => {
-    if (cities === null) {
+    if (!cities) {
       localStorage.setItem("cities", JSON.stringify([info.id]));
       setMessage("Город успешно добавлен на главный экран!");
     } else if (!cities.includes(info.id)) {
@@ -30,9 +30,8 @@ const CityPage = ({ data }) => {
       localStorage.setItem("cities", JSON.stringify(cities));
       setMessage("Город успешно добавлен на главный экран!");
     } else {
-      console.log("Remove");
       const newCities = cities.filter((elem) => elem !== info.id);
-      if (newCities.length === 0) {
+      if (!newCities.length) {
         localStorage.removeItem("cities");
       } else {
         localStorage.setItem("cities", JSON.stringify(newCities));
@@ -54,9 +53,7 @@ const CityPage = ({ data }) => {
           </Link>
           <button
             className={
-              cities === null || !cities.includes(info.id)
-                ? s.favorite
-                : s.favorite_add
+              !cities || !cities.includes(info.id) ? s.favorite : s.favorite_add
             }
             onClick={saveFavotite}
           >
