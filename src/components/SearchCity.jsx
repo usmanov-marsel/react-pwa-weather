@@ -14,7 +14,11 @@ const SearchCity = ({ onDataChange }) => {
 
   const onSelectChange = async (option) => {
     if (option && option.value !== "") {
+      try {
       const data = await fetchWeather(option.value);
+      } catch (e) {
+        console.log(e);
+      }
       navigate(`/city/${data.id}`);
       onDataChange(data);
     }
