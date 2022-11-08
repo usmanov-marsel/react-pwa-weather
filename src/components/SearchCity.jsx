@@ -9,18 +9,13 @@ const SearchCity = ({ onDataChange }) => {
   const [options, setOptions] = useState([]);
   const navigate = useNavigate();
 
-  const onFilter = (option, inputValue) =>
-    inputValue.length < 3 ? null : option;
+  const onFilter = (option, inputValue) => (inputValue.length < 3 ? null : option);
 
   const onSelectChange = async (option) => {
     if (option && option.value !== "") {
-      try {
-        const data = await fetchWeather(option.value);
-        navigate(`/city/${data.id}`);
-        onDataChange(data);
-      } catch (e) {
-        console.log(e);
-      }
+      const data = await fetchWeather(option.value);
+      onDataChange(data);
+      navigate(`/city/${data.id}`);
     }
   };
   const onInputChange = (value) => {

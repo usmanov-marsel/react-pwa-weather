@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Icon from "./Icon";
 import s from "./styles/CityPage.module.css";
 import { Link, useParams } from "react-router-dom";
@@ -6,14 +6,20 @@ import { getIconNameFromId } from "../getIconNameFromId";
 import { fetchWeatherId } from "../api/fetchWeather";
 
 const CityPage = ({ data }) => {
-  const cities = JSON.parse(localStorage.getItem("cities"));
   const params = useParams();
-  const [info, setInfo] = useState(data);
+  const [info, setInfo] = useState(null);
+  const cities = JSON.parse(localStorage.getItem("cities"));
   const [message, setMessage] = useState("");
-  if (Object.keys(info).length === 0 || Number(params.id) !== info.id) {
-    fetchWeatherId(params.id).then((res) => {
-      setInfo(res);
-    });
+  const getData = async (id) => {
+    const result = await fetchWeatherId(id);
+    setInfo(result);
+  };
+
+  useEffect(() => {
+    getData(params.id);
+  }, [data, params.id]);
+
+  if (!info) {
     return <div>Loading...</div>;
   }
   const id = Number(info.weather[0].id);
@@ -52,18 +58,14 @@ const CityPage = ({ data }) => {
             <div className={s.back_text}>Назад</div>
           </Link>
           <button
-            className={
-              !cities || !cities.includes(info.id) ? s.favorite : s.favorite_add
-            }
+            className={!cities || !cities.includes(info.id) ? s.favorite : s.favorite_add}
             onClick={saveFavotite}
           >
             <Icon name="favorite" />
           </button>
         </div>
         <div className={s.content_name}>{info.name}</div>
-        <div className={s.content_description}>
-          {info.weather[0].description}
-        </div>
+        <div className={s.content_description}>{info.weather[0].description}</div>
         <div className={s.temp}>
           <div className={s.temp_number}>{parseInt(info.main.temp)}°</div>
           <div className={s.temp_icon}>
@@ -74,9 +76,7 @@ const CityPage = ({ data }) => {
           <div className={s.pressure_icon}>
             <Icon name="pressure" />
           </div>
-          <div className={s.pressure_number}>
-            {info.main.pressure} мм рт. ст.
-          </div>
+          <div className={s.pressure_number}>{info.main.pressure} мм рт. ст.</div>
         </div>
         <div className={s.sunset}>
           Закат в {timeSunset.toTimeString().split(" ")[0].slice(0, -3)}
